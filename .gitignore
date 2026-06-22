@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+backend/uploads/miembros/*
+backend/uploads/logo/*
+!backend/uploads/miembros/.gitkeep
+!backend/uploads/logo/.gitkeep
+*.log
+.DS_Store

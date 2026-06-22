@@ -1,0 +1,94 @@
+=============================================
+CÓMO EJECUTAR EL PROYECTO
+=============================================
+
+📌 PostgreSQL ya está instalado y corriendo (puerto 5432)
+
+1. Ir a la carpeta del proyecto:
+   cd /home/jared/proyecto/ProgramaIglesiaEFESO
+
+2. Arrancar backend + frontend a la vez:
+   node /tmp/package/index.js run dev
+
+   Backend:  http://localhost:3001
+   Frontend: http://localhost:5173
+
+=============================================
+COMANDOS ÚTILES
+=============================================
+
+- npm run build        → Compila frontend para producción
+- node backend/src/migrate.js   → Migrar/crear BD
+- pg_isready           → Verifica si PostgreSQL está corriendo
+- ss -tlnp | grep 5432 → Ver qué proceso usa el puerto
+
+=============================================
+ESTRUCTURA DEL PROYECTO
+=============================================
+
+ProgramaIglesiaEFESO/
+├── frontend/          → React + Vite (interfaz con sidebar)
+├── backend/           → Node.js + Express (API REST)
+│   ├── src/
+│   │   ├── index.js   → Servidor Express (puerto 3001)
+│   │   ├── db.js      → Conexión PostgreSQL
+│   │   ├── migrate.js → Script de migración
+│   │   └── routes/    → API de cada módulo
+│   └── db/migrate.sql → Esquema de base de datos
+├── intrucciones       → Este archivo
+└── package.json       → Scripts del proyecto
+
+=============================================
+MÓDULOS DEL SISTEMA
+=============================================
+
+- Miembros      → CRUD completo con formulario
+- Cargos        → CRUD
+- Privilegios   → CRUD
+- Ministerios   → CRUD
+- Ofrendas      → CRUD
+- Eventos       → CRUD
+- Asistencia    → CRUD
+
+=============================================
+USUARIOS Y ROLES (SISTEMA DE LOGIN)
+=============================================
+
+Usuario por defecto (creado en migración):
+  Usuario: admin
+  Contraseña: admin
+  Rol: Admin (acceso total)
+  IMPORTANTE: Cambiar la contraseña después del primer inicio de sesión
+
+Roles del sistema:
+  Admin     → CRUD completo en todos los módulos
+  Pastor    → Puede ver y editar todo, NO puede eliminar
+  Tesorero  → Puede crear miembros y ofrendas, NO ve datos sensibles del miembro
+              NO ve fondos totales, NO puede eliminar
+  Digitador → Puede agregar/editar miembros, NO puede eliminar ni ver ofrendas
+
+Para agregar más usuarios, usar el módulo Usuarios en el menú (solo Admin).
+
+Nuevos módulos:
+  Usuarios → CRUD de usuarios del sistema (solo Admin)
+  Bitácora → Registro de auditoría de todas las acciones (Admin y Pastor)
+
+Bitácora: cada INSERT, UPDATE, DELETE en cualquier tabla queda registrado
+con usuario, fecha, IP y datos anteriores/nuevos (JSON).
+
+=============================================
+CAMPOS DEL FORMULARIO DE MIEMBROS
+=============================================
+
+- Número de Identidad (obligatorio)
+- Nombres (obligatorio)
+- Apellidos (obligatorio)
+- Género: Masculino / Femenino
+- Fecha de Nacimiento
+- Teléfono (propio)
+- Teléfono de Contacto (familiar/encargado)
+- Email
+- Actividad Económica (oficio/profesión)
+- Dirección
+- Fecha de Bautismo
+- Observaciones

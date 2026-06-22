@@ -1,0 +1,14 @@
+{
+  "name": "iglesia-efeso",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"node backend/src/index.js\" \"node /tmp/package/index.js --prefix frontend run dev\"",
+    "build": "node /tmp/package/index.js --prefix frontend run build",
+    "migrate": "node backend/src/migrate.js",
+    "setup": "node backend/src/migrate.js && node /tmp/package/index.js install --prefix frontend && node /tmp/package/index.js install",
+    "start": "node backend/src/migrate.js && concurrently -n backend,frontend -c blue,green \"node backend/src/index.js\" \"node /tmp/package/index.js --prefix frontend run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
