@@ -116,6 +116,15 @@ export const configuracionAPI = {
   uploadLogo: (data) => API.post('/configuracion/upload-logo', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
 }
 
+export const backupsAPI = {
+  getAll: () => API.get('/backups'),
+  create: () => API.post('/backups'),
+  restore: (filename) => API.post(`/backups/restore/${filename}`),
+  restoreUpload: (data) => API.post('/backups/restore', data, { headers: { 'Content-Type': 'multipart/form-data' }, timeout: 300000 }),
+  send: (filename) => API.post(`/backups/send/${filename}`),
+  delete: (filename) => API.delete(`/backups/${filename}`),
+}
+
 export const reportesAPI = {
   ofrendasPorFecha: (params) => API.get('/reportes/ofrendas-por-fecha', { params }),
   ofrendasPorMiembro: (params) => API.get('/reportes/ofrendas-por-miembro', { params }),

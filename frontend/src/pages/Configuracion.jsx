@@ -11,6 +11,9 @@ const fieldDefs = [
   { clave: 'email_usuario', label: 'Usuario de Correo', type: 'text' },
   { clave: 'email_password', label: 'Contraseña de Correo', type: 'password' },
   { clave: 'email_ssl', label: 'Usar SSL', type: 'checkbox' },
+  { clave: 'backup_email', label: 'Correo para Respaldos', type: 'text', help: 'Los respaldos automáticos se enviarán aquí' },
+  { clave: 'backup_activo', label: 'Respaldo Automático Diario', type: 'checkbox' },
+  { clave: 'backup_hora', label: 'Hora del Respaldo', type: 'text', help: 'Formato HH:MM (ej: 06:00)' },
 ]
 
 export default function Configuracion() {
@@ -154,6 +157,7 @@ export default function Configuracion() {
                     ) : (
                       <>
                         <label className="form-label" htmlFor={field.clave}>{field.label}</label>
+                        {field.help && <small className="text-muted d-block mb-1">{field.help}</small>}
                         <input
                           type={field.type}
                           className="form-control"

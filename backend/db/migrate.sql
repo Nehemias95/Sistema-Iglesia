@@ -196,6 +196,18 @@ INSERT INTO configuracion (clave, valor, tipo, descripcion)
 SELECT 'mision_iglesia', '', 'texto', 'Misión a la que pertenece la iglesia'
 WHERE NOT EXISTS (SELECT 1 FROM configuracion WHERE clave = 'mision_iglesia');
 
+INSERT INTO configuracion (clave, valor, tipo, descripcion)
+SELECT 'backup_email', '', 'texto', 'Correo para enviar respaldos automáticos'
+WHERE NOT EXISTS (SELECT 1 FROM configuracion WHERE clave = 'backup_email');
+
+INSERT INTO configuracion (clave, valor, tipo, descripcion)
+SELECT 'backup_activo', 'true', 'booleano', 'Activar respaldo automático diario (true/false)'
+WHERE NOT EXISTS (SELECT 1 FROM configuracion WHERE clave = 'backup_activo');
+
+INSERT INTO configuracion (clave, valor, tipo, descripcion)
+SELECT 'backup_hora', '06:00', 'texto', 'Hora del respaldo automático (formato HH:MM)'
+WHERE NOT EXISTS (SELECT 1 FROM configuracion WHERE clave = 'backup_hora');
+
 -- =============================================
 -- TABLA DE USUARIOS
 -- =============================================

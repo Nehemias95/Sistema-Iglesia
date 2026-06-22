@@ -18,6 +18,7 @@ const menuItems = [
   { sep: true },
   { path: '/usuarios', icon: 'fa-users-cog', label: 'Usuarios', roles: ['Admin'] },
   { path: '/configuracion', icon: 'fa-cog', label: 'Configuración', roles: ['Admin'] },
+  { path: '/backups', icon: 'fa-database', label: 'Respaldos', roles: ['Admin'] },
   { path: '/bitacora', icon: 'fa-history', label: 'Bitácora', roles: ['Admin', 'Pastor'] },
 ]
 

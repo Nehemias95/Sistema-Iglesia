@@ -19,6 +19,8 @@ import bitacoraRouter from './routes/bitacora.js'
 import diezmosRouter from './routes/diezmos.js'
 import configuracionRouter from './routes/configuracion.js'
 import reportesRouter from './routes/reportes.js'
+import backupsRouter from './routes/backups.js'
+import { iniciarProgramador } from './backup-scheduler.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express()
@@ -57,6 +59,7 @@ app.use('/api/diezmos', diezmosRouter)
 app.use('/api/configuracion', configuracionRouter)
 app.use('/api/bitacora', bitacoraRouter)
 app.use('/api/reportes', reportesRouter)
+app.use('/api/backups', backupsRouter)
 
 // Servir frontend en producción
 const frontendDist = join(__dirname, '..', '..', 'frontend', 'dist')
@@ -74,6 +77,7 @@ app.use((err, req, res, next) => {
 async function start() {
   try {
     await ensureDatabase()
+    iniciarProgramador(app)
     app.listen(PORT, () => {
       console.log(`Servidor corriendo en http://localhost:${PORT}`)
     })

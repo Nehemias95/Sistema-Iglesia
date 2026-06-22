@@ -7,3 +7,6 @@ backend/uploads/logo/*
 !backend/uploads/logo/.gitkeep
 *.log
 .DS_Store
+backend/backups/*.sql
+backend/backups/*.sql.gz
+!backend/backups/.gitkeep
