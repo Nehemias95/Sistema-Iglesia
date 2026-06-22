@@ -58,6 +58,14 @@ app.use('/api/configuracion', configuracionRouter)
 app.use('/api/bitacora', bitacoraRouter)
 app.use('/api/reportes', reportesRouter)
 
+// Servir frontend en producción
+const frontendDist = join(__dirname, '..', '..', 'frontend', 'dist')
+app.use(express.static(frontendDist))
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) return next()
+  res.sendFile(join(frontendDist, 'index.html'))
+})
+
 app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).json({ error: 'Error interno del servidor' })
