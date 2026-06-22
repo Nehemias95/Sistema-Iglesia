@@ -6,6 +6,7 @@ import { configuracionAPI } from '../api'
 const menuItems = [
   { path: '/', icon: 'fa-home', label: 'Inicio', roles: ['Admin', 'Pastor', 'Tesorero', 'Digitador'] },
   { path: '/miembros', icon: 'fa-users', label: 'Miembros', roles: ['Admin', 'Pastor', 'Tesorero', 'Digitador'] },
+  { path: '/fichas', icon: 'fa-id-card', label: 'Fichas', roles: ['Admin', 'Pastor', 'Tesorero', 'Digitador'] },
   { path: '/cargos', icon: 'fa-user-tag', label: 'Cargos', roles: ['Admin', 'Pastor'] },
   { path: '/privilegios', icon: 'fa-shield-alt', label: 'Privilegios', roles: ['Admin', 'Pastor'] },
   { path: '/ministerios', icon: 'fa-church', label: 'Ministerios', roles: ['Admin', 'Pastor', 'Tesorero'] },

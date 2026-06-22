@@ -18,7 +18,11 @@ export default function Miembros() {
   const [fotoPreview, setFotoPreview] = useState(null)
   const [fotoFile, setFotoFile] = useState(null)
   const [fotoActual, setFotoActual] = useState(null)
+  const [fotoDuiPreview, setFotoDuiPreview] = useState(null)
+  const [fotoDuiFile, setFotoDuiFile] = useState(null)
+  const [fotoDuiActual, setFotoDuiActual] = useState(null)
   const fileInputRef = useRef(null)
+  const duiFileInputRef = useRef(null)
 
   useEffect(() => { loadMiembros() }, [])
 
@@ -37,8 +41,18 @@ export default function Miembros() {
     }
   }
 
+  const handleFotoDuiChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setFotoDuiFile(file)
+      setFotoDuiPreview(URL.createObjectURL(file))
+    }
+  }
+
   const openCreate = () => {
-    setForm(emptyForm); setEditingId(null); setFotoFile(null); setFotoPreview(null); setFotoActual(null)
+    setForm(emptyForm); setEditingId(null)
+    setFotoFile(null); setFotoPreview(null); setFotoActual(null)
+    setFotoDuiFile(null); setFotoDuiPreview(null); setFotoDuiActual(null)
     setShowModal(true)
   }
 
@@ -61,6 +75,9 @@ export default function Miembros() {
     setFotoFile(null)
     setFotoPreview(m.foto ? m.foto : null)
     setFotoActual(m.foto || null)
+    setFotoDuiFile(null)
+    setFotoDuiPreview(m.foto_dui ? m.foto_dui : null)
+    setFotoDuiActual(m.foto_dui || null)
     setShowModal(true)
   }
 
@@ -70,6 +87,7 @@ export default function Miembros() {
       const fd = new FormData()
       Object.entries(form).forEach(([k, v]) => fd.append(k, v))
       if (fotoFile) fd.append('foto', fotoFile)
+      if (fotoDuiFile) fd.append('foto_dui', fotoDuiFile)
       if (editingId) {
         fd.append('estado', 'Activo')
         await miembrosAPI.update(editingId, fd)
@@ -115,10 +133,10 @@ export default function Miembros() {
         <div className="card-body p-0">
           <div className="table-responsive">
             <table className="table table-hover align-middle mb-0">
-              <thead><tr><th>Foto</th><th>#</th><th>Identidad</th><th>Nombres</th><th>Apellidos</th><th>Teléfono</th><th>Contacto</th><th>Actividad</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <thead><tr><th>Foto</th><th>DUI</th><th>#</th><th>Identidad</th><th>Nombres</th><th>Apellidos</th><th>Teléfono</th><th>Contacto</th><th>Actividad</th><th>Estado</th><th>Acciones</th></tr></thead>
               <tbody>
                 {miembros.length === 0 ? (
-                  <tr><td colSpan="10" className="text-center text-muted py-4">No hay miembros registrados</td></tr>
+                  <tr><td colSpan="11" className="text-center text-muted py-4">No hay miembros registrados</td></tr>
                 ) : (
                   miembros.map((m, i) => (
                     <tr key={m.id_miembro}>
@@ -129,6 +147,15 @@ export default function Miembros() {
                           <div className="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white" style={{ width: 40, height: 40 }}>
                             <i className="fas fa-user"></i>
                           </div>
+                        )}
+                      </td>
+                      <td>
+                        {m.foto_dui ? (
+                          <a href={fotoUrl(m.foto_dui)} target="_blank" rel="noopener noreferrer" title="Ver DUI">
+                            <img src={fotoUrl(m.foto_dui)} alt="DUI" style={{ width: 40, height: 30, objectFit: 'cover' }} className="border rounded" />
+                          </a>
+                        ) : (
+                          <span className="text-muted small">—</span>
                         )}
                       </td>
                       <td>{i + 1}</td>
@@ -164,17 +191,34 @@ export default function Miembros() {
               </div>
               <form onSubmit={handleSave}>
                 <div className="modal-body bg-light">
-                  <div className="text-center mb-3">
-                    <div className="d-flex flex-column align-items-center">
-                      {fotoPreview ? (
-                        <img src={fotoUrl(fotoPreview) || fotoPreview} alt="Preview" className="rounded-circle mb-2" style={{ width: 100, height: 100, objectFit: 'cover' }} />
-                      ) : (
-                        <div className="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white mb-2" style={{ width: 100, height: 100 }}>
-                          <i className="fas fa-user fa-3x"></i>
-                        </div>
-                      )}
-                      <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFotoChange} className="form-control form-control-sm" style={{ maxWidth: 250 }} />
-                      <small className="text-muted">Foto para carnet de membresía (máx 2MB)</small>
+                  <div className="row g-2 mb-3">
+                    <div className="col-md-6">
+                      <label className="form-label small fw-semibold">Foto de Rostro</label>
+                      <div className="d-flex flex-column align-items-center border rounded p-2 bg-white">
+                        {fotoPreview ? (
+                          <img src={fotoUrl(fotoPreview) || fotoPreview} alt="Preview" className="rounded-circle mb-2" style={{ width: 100, height: 100, objectFit: 'cover' }} />
+                        ) : (
+                          <div className="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white mb-2" style={{ width: 100, height: 100 }}>
+                            <i className="fas fa-user fa-3x"></i>
+                          </div>
+                        )}
+                        <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFotoChange} className="form-control form-control-sm" />
+                        <small className="text-muted">Foto para carnet (máx 2MB)</small>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label small fw-semibold">Copia del DUI</label>
+                      <div className="d-flex flex-column align-items-center border rounded p-2 bg-white">
+                        {fotoDuiPreview ? (
+                          <img src={fotoUrl(fotoDuiPreview) || fotoDuiPreview} alt="DUI Preview" className="mb-2 border rounded" style={{ width: '100%', maxHeight: 100, objectFit: 'contain' }} />
+                        ) : (
+                          <div className="bg-light d-flex align-items-center justify-content-center text-muted mb-2 border rounded" style={{ width: '100%', height: 100 }}>
+                            <i className="fas fa-id-card fa-3x"></i>
+                          </div>
+                        )}
+                        <input ref={duiFileInputRef} type="file" accept="image/*" onChange={handleFotoDuiChange} className="form-control form-control-sm" />
+                        <small className="text-muted">Copia del Documento Único de Identidad (máx 2MB)</small>
+                      </div>
                     </div>
                   </div>
                   <div className="row g-2">

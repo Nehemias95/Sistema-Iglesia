@@ -15,6 +15,7 @@ import Bitacora from './pages/Bitacora'
 import Diezmos from './pages/Diezmos'
 import Configuracion from './pages/Configuracion'
 import Reportes from './pages/Reportes'
+import Fichas from './pages/Fichas'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
@@ -47,6 +48,7 @@ function AppRoutes() {
       <Route path="/bitacora" element={<PrivateRoute><Layout><Bitacora /></Layout></PrivateRoute>} />
       <Route path="/configuracion" element={<PrivateRoute><Layout><Configuracion /></Layout></PrivateRoute>} />
       <Route path="/reportes" element={<PrivateRoute><Layout><Reportes /></Layout></PrivateRoute>} />
+      <Route path="/fichas" element={<PrivateRoute><Layout><Fichas /></Layout></PrivateRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

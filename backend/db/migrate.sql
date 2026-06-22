@@ -150,6 +150,7 @@ CREATE INDEX IF NOT EXISTS idx_miembros_privilegios_activo ON miembros_privilegi
 -- Migración para tablas existentes (agrega columnas faltantes)
 ALTER TABLE miembros ADD COLUMN IF NOT EXISTS actividad_economica VARCHAR(150);
 ALTER TABLE miembros ADD COLUMN IF NOT EXISTS telefono_contacto VARCHAR(15);
+ALTER TABLE miembros ADD COLUMN IF NOT EXISTS foto_dui VARCHAR(255);
 ALTER TABLE ofrendas ADD COLUMN IF NOT EXISTS id_evento INT REFERENCES eventos(id_evento) ON DELETE SET NULL;
 
 -- =============================================
