@@ -210,11 +210,29 @@ CREATE TABLE IF NOT EXISTS usuarios (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Usuario admin por defecto (password: admin)
--- IMPORTANTE: Cambiar la contraseña después del primer inicio de sesión
+-- Usuario admin por defecto (password: 123)
 INSERT INTO usuarios (username, password_hash, nombre_completo, rol)
-SELECT 'admin', '$2b$10$rI.aaQNE9NnYp0CZXECIA.lrlL67TL6pZrVZZCT852Lj60Z7KUkPC', 'Administrador', 'Admin'
+SELECT 'admin', '$2b$10$Umytyr6T4cUQ4gWel//CU.hM0dEDIpEO1aQcakW/UbJVvFCCdCT1q', 'Administrador', 'Admin'
 WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE username = 'admin');
+
+-- Usuario pastor por defecto (password: 123)
+INSERT INTO usuarios (username, password_hash, nombre_completo, rol)
+SELECT 'pastor', '$2b$10$Umytyr6T4cUQ4gWel//CU.hM0dEDIpEO1aQcakW/UbJVvFCCdCT1q', 'Pastor Principal', 'Pastor'
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE username = 'pastor');
+
+-- Usuario tesorero por defecto (password: 123)
+INSERT INTO usuarios (username, password_hash, nombre_completo, rol)
+SELECT 'tesorero', '$2b$10$Umytyr6T4cUQ4gWel//CU.hM0dEDIpEO1aQcakW/UbJVvFCCdCT1q', 'Tesorero General', 'Tesorero'
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE username = 'tesorero');
+
+-- Usuario digitador por defecto (password: 123)
+INSERT INTO usuarios (username, password_hash, nombre_completo, rol)
+SELECT 'digitador', '$2b$10$Umytyr6T4cUQ4gWel//CU.hM0dEDIpEO1aQcakW/UbJVvFCCdCT1q', 'Digitador', 'Digitador'
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE username = 'digitador');
+
+-- Actualizar contraseña de usuarios existentes
+UPDATE usuarios SET password_hash = '$2b$10$Umytyr6T4cUQ4gWel//CU.hM0dEDIpEO1aQcakW/UbJVvFCCdCT1q'
+WHERE username IN ('admin', 'pastor', 'tesorero', 'digitador');
 
 -- =============================================
 -- TABLA DE BITÁCORA (AUDITORÍA)

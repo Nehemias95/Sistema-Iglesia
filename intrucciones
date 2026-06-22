@@ -54,11 +54,10 @@ MÓDULOS DEL SISTEMA
 USUARIOS Y ROLES (SISTEMA DE LOGIN)
 =============================================
 
-Usuario por defecto (creado en migración):
+Usuario por defecto:
   Usuario: admin
-  Contraseña: admin
+  Contraseña: 123
   Rol: Admin (acceso total)
-  IMPORTANTE: Cambiar la contraseña después del primer inicio de sesión
 
 Roles del sistema:
   Admin     → CRUD completo en todos los módulos
@@ -66,6 +65,12 @@ Roles del sistema:
   Tesorero  → Puede crear miembros y ofrendas, NO ve datos sensibles del miembro
               NO ve fondos totales, NO puede eliminar
   Digitador → Puede agregar/editar miembros, NO puede eliminar ni ver ofrendas
+
+Usuarios de prueba (todos con contraseña: 123, usar este en login):
+  admin     → Admin      (acceso total)
+  pastor    → Pastor     (todo excepto eliminar)
+  tesorero  → Tesorero   (ofrendas + miembros limitados, no elimina)
+  digitador → Digitador  (solo crear/editar miembros, no elimina)
 
 Para agregar más usuarios, usar el módulo Usuarios en el menú (solo Admin).
 
